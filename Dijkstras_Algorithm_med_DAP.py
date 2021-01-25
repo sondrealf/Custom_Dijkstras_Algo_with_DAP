@@ -1,15 +1,19 @@
 INF = 9999999999
-shortest = 1
-longest = -1
 class Graph:
     def __init__(self, graf, method):
-        self.graf = graf
         self.method = method
-        if method == -1:
-            for i in range(len(self.graf)):
-                for u in range(len(self.graf[0])):
-                    if self.graf[i][u]<INF:
-                        self.graf[i][u] *= -1
+
+        if isinstance(graf,list):
+            self.graf = graf
+            if method:
+                for i in range(len(self.graf)):
+                    for u in range(len(self.graf[0])):
+                        if self.graf[i][u]<INF:
+                            self.graf[i][u] *= -1
+        elif isinstance(graf, int):
+            self.graf = []*graf
+            for i in range(graf):
+                self.graf.append([INF]*graf)
 
     def SSSP(self, src, map):
         self.map = []*3
@@ -38,21 +42,15 @@ class Graph:
         for u in range(len(self.graf)):
             route.append(self.map[u][1])
 
-        if map:
+        if map or not self.method:
             print("--------------")
             print("Til Dist Fra")
             for i in self.map:
                 print(i)
             print("--------------")
 
-        if self.method == -1:
+        if self.method:
             print(min(route)*-1)
-        elif not map:
-            print("--------------")
-            print("Til Dist Fra")
-            for i in self.map:
-                print(i)
-            print("--------------")
 
     def check(self, arg):
         teller = []
@@ -73,6 +71,10 @@ class Graph:
         self.visited.append(arg)
         self.unvisited.pop(self.unvisited.index(arg))
 
+    def addEdge(self, start, end, dist, singel):
+        self.graf[start][end] = dist
+        if not singel:
+            self.graf[end][start] = dist
 
 n = 5
 m = 6
@@ -97,11 +99,26 @@ Graph becomes
 [10, INF, 23, INF, INF]
 [INF, INF, INF, INF, INF]
 
-Longest route or shortest rout?
-g = Graph(graf,shortest/longest)
+graph or n?, Longest route=True or shortest route=False?
+g = Graph(graf/n,True/False)
+
+from index, to index, distance, singel direction=True and both directions=False
+g.addEdge(from, to, distance, True/False)
 
 Source, Wanna draw map or not?
 g.SSSP(src,True/False)
 """
-g = Graph(graf,shortest)
-g.SSSP(3,False)
+
+g = Graph(graf,False)
+g.SSSP(3,True)
+
+
+p = Graph(3,True)
+for i in p.graf:
+    print(i)
+
+print("---------------")
+
+p.addEdge(0, 1, 10, False)
+for i in p.graf:
+    print(i)
