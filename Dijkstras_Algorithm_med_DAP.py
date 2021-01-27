@@ -116,7 +116,7 @@ g.SSSP(3,True)
 p = Graph(3,True)
 for i in p.graf:
     print(i)
-
+ 
 print("---------------")
 
 p.addEdge(0, 1, 10, False)
