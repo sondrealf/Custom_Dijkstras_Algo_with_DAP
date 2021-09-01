@@ -42,15 +42,16 @@ class Graph:
         for u in range(len(self.graf)):
             route.append(self.map[u][1])
 
-        if map or not self.method:
-            print("--------------")
-            print("Til Dist Fra")
-            for i in self.map:
+        if map:
+            for i in self.graf:
                 print(i)
-            print("--------------")
+            
+        print("--------------")
+        print("Til Dist Fra")
+        for i in self.map:
+            print(i)
+        print("--------------")
 
-        if self.method:
-            print(min(route)*-1)
 
     def check(self, arg):
         teller = []
@@ -75,6 +76,9 @@ class Graph:
         self.graf[start][end] = dist
         if not singel:
             self.graf[end][start] = dist
+
+
+
 
 n = 5
 m = 6
@@ -112,7 +116,7 @@ g.SSSP(src,True/False)
 g = Graph(graf,False)
 g.SSSP(3,True)
 
-
+"""
 p = Graph(3,True)
 for i in p.graf:
     print(i)
@@ -122,3 +126,4 @@ print("---------------")
 p.addEdge(0, 1, 10, False)
 for i in p.graf:
     print(i)
+"""
